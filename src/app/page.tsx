@@ -1,10 +1,9 @@
-import { Button } from '@/components/ui/button';
+import SignInForm from './features/auth/SignInForm';
 
 export default function Home() {
   return (
     <main>
-      <h1>Bit Blog</h1>
-      <Button>Hello</Button>
+      <SignInForm />
     </main>
   );
 }
