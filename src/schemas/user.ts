@@ -33,3 +33,16 @@ export const CreateUserSchema = z
   });
 
 export type CreateUserSchemaType = z.infer<typeof CreateUserSchema>;
+
+export const SignInSchema = z.object({
+  username: z
+    .string({ required_error: 'Username is required' })
+    .min(1, 'Username is required')
+    .max(32, 'Username cannot exceed 32 characters'),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(1, 'Password is required')
+    .max(32, 'Password cannot exceed 32 characters'),
+});
+
+export type SignInSchemaType = z.infer<typeof SignInSchema>;
