@@ -1,3 +1,5 @@
+import { hash } from 'argon2';
+
 import { sql } from '@/db';
 import { schemaValidator } from '@/helpers/schemaValidator';
 import type { CreateUserSchemaType } from '@/schemas/user';
@@ -21,9 +23,11 @@ export async function POST(req: Request) {
         { status: 409 }
       );
 
+    const hashedPassword = await hash(body.password);
+
     await sql('insert into users (username, password) values ($1, $2)', [
       body.username,
-      body.password,
+      hashedPassword,
     ]);
 
     return Response.json({ message: 'Success' });
