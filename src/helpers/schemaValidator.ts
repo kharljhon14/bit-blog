@@ -1,12 +1,13 @@
 import type { ZodSchema } from 'zod';
 
-export async function schemaValidator(schema: ZodSchema, body: any) {
+export function schemaValidator(schema: ZodSchema, body: any) {
   const result = schema.safeParse(body);
 
   if (!result.success) {
     let errorMessage = '';
+
     result.error.issues.forEach((issue) => {
-      errorMessage = `${errorMessage + issue.message} `;
+      errorMessage = `${errorMessage + issue.message}.`;
     });
 
     return errorMessage;
