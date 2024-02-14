@@ -25,10 +25,9 @@ export async function signInAction(
   _state: SignInState,
   formData: FormData
 ): Promise<SignInState> {
-  const username = formData.get('username');
-  const password = formData.get('password');
+  const form = Object.fromEntries(formData.entries());
 
-  const validation = SignInSchema.safeParse({ username, password });
+  const validation = SignInSchema.safeParse(form);
 
   if (!validation.success) {
     const errors = validation.error.flatten().fieldErrors;
@@ -40,7 +39,7 @@ export async function signInAction(
 
   const res = await fetch('http://localhost:3000/api/auth/sign-in', {
     method: 'POST',
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ ...validation.data }),
   });
 
   if (!res.ok) {
@@ -57,15 +56,8 @@ export async function signUpAction(
   _state: SignUpState,
   formData: FormData
 ): Promise<SignUpState> {
-  const username = formData.get('username');
-  const password = formData.get('password');
-  const confirmPassword = formData.get('confirm_password');
-
-  const validation = CreateUserSchema.safeParse({
-    username,
-    password,
-    confirm_password: confirmPassword,
-  });
+  const form = Object.fromEntries(formData.entries());
+  const validation = CreateUserSchema.safeParse(form);
 
   if (!validation.success) {
     const errors = validation.error.flatten().fieldErrors;
@@ -78,9 +70,7 @@ export async function signUpAction(
   const res = await fetch('http://localhost:3000/api/auth/sign-up', {
     method: 'POST',
     body: JSON.stringify({
-      username,
-      password,
-      confirm_password: confirmPassword,
+      ...validation.data,
     }),
   });
 
