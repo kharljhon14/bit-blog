@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { signInAction } from './authFormActions';
 
 export default function SignInForm() {
-  const [state, action] = useFormState(signInAction, { message: '' });
+  const [state, action] = useFormState(signInAction, {});
 
   return (
     <Card>
