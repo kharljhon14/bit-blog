@@ -5,18 +5,18 @@ import { Input } from '@/components/ui/input';
 
 export default function SignInForm() {
   return (
-    <Card className="max-w-lg">
+    <Card>
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
       </CardHeader>
       <CardContent>
-        <form action="">
+        <form>
           <div className="space-y-2">
             <Input placeholder="Username" />
             <PasswordInput placeholder="Password" />
           </div>
 
-          <Button className="mt-4">Submit</Button>
+          <Button className="mt-4 w-full">Submit</Button>
         </form>
       </CardContent>
     </Card>
