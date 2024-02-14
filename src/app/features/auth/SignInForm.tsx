@@ -35,12 +35,14 @@ export default function SignInForm() {
                 name="username"
                 placeholder="Username"
               />
-              <label
-                className="text-xs text-red-500"
-                htmlFor="username"
-              >
-                {state.errors?.username}
-              </label>
+              {state.errors?.username && (
+                <label
+                  className="text-xs text-red-500"
+                  htmlFor="username"
+                >
+                  {state.errors.username[0]}
+                </label>
+              )}
             </div>
 
             <div>
@@ -49,12 +51,14 @@ export default function SignInForm() {
                 name="password"
                 placeholder="Password"
               />
-              <label
-                className="text-xs text-red-500"
-                htmlFor="password"
-              >
-                {state.errors?.password}
-              </label>
+              {state.errors?.password && (
+                <label
+                  className="text-xs text-red-500"
+                  htmlFor="username"
+                >
+                  {state.errors.password[0]}
+                </label>
+              )}
             </div>
           </div>
 
