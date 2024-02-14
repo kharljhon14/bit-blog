@@ -12,19 +12,19 @@ export const CreateUserSchema = z
       .max(32, 'Username cannot exceed 32 characters'),
     password: z
       .string({ required_error: 'Password is required' })
-      .min(8, 'Password is required')
+      .min(8, 'Password must be atleast 8 character')
       .max(32, 'Password cannot exceed 32 characters')
       .regex(passwordValidation, {
         message:
-          'Password must be minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+          'At least one uppercase letter, one number and one special character',
       }),
     confirm_password: z
       .string({ required_error: 'Confirm password is required' })
-      .min(8, 'Confirm password is required')
+      .min(8, 'Confirm password must be atleast 8 character')
       .max(32, 'Confirm password cannot exceed 32 characters')
       .regex(passwordValidation, {
         message:
-          'Confirm password must be minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+          'At least one uppercase letter, one number and one special character',
       }),
   })
   .refine((data) => data.password === data.confirm_password, {
