@@ -29,7 +29,11 @@ export async function POST(req: Request) {
 
     const match = await verify(userRes.rows[0].password, body.password);
 
-    if (!match) return Response.json({ message: 'Invalid credentials!' });
+    if (!match)
+      return Response.json(
+        { message: 'Invalid credentials!' },
+        { status: 409 }
+      );
 
     const cookieStore = cookies();
     const token = await signInToken(userRes.rows[0].id);
