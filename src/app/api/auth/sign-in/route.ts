@@ -1,5 +1,5 @@
 import { verify } from 'argon2';
-import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
 import { sql } from '@/db';
 import { signInToken } from '@/helpers/cookies';
@@ -35,12 +35,17 @@ export async function POST(req: Request) {
         { status: 409 }
       );
 
-    const cookieStore = cookies();
     const token = await signInToken(userRes.rows[0].id);
 
-    cookieStore.set('session-token', token);
+    const response = NextResponse.json({ message: 'Success!' });
 
-    return Response.json({ message: 'Success!' });
+    response.cookies.set('session-token', token, {
+      sameSite: 'strict',
+      httpOnly: true,
+      secure: true,
+    });
+
+    return response;
   } catch (err) {
     if (err instanceof Error)
       return Response.json({ message: err.message }, { status: 500 });

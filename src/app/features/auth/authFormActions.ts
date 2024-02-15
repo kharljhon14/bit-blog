@@ -1,5 +1,6 @@
 'use server';
 
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { CreateUserSchema, SignInSchema } from '@/schemas/user';
@@ -48,6 +49,14 @@ export async function signInAction(
       message,
     };
   }
+
+  const cookieStore = cookies();
+
+  const cookiesArray = res.headers.getSetCookie()[0];
+
+  const token = cookiesArray.split('=')[1];
+
+  cookieStore.set('session-token', token.split(';')[0]);
 
   return redirect('/');
 }
