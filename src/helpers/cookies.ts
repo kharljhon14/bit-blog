@@ -14,7 +14,11 @@ export async function signInToken(userId: string) {
 }
 
 export async function verifyToken(jwt: string) {
-  const result = await jwtVerify(jwt, tempSecret);
+  try {
+    const result = await jwtVerify(jwt, tempSecret);
 
-  return result.payload.sub;
+    return result.payload.sub;
+  } catch (_err) {
+    return undefined;
+  }
 }
