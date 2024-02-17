@@ -1,5 +1,6 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { AiOutlineOrderedList, AiOutlineUnorderedList } from 'react-icons/ai';
+import { BsBlockquoteLeft } from 'react-icons/bs';
 import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
 import {
   MdOutlineFormatAlignCenter,
@@ -8,6 +9,9 @@ import {
   MdOutlineFormatBold,
   MdOutlineFormatItalic,
   MdOutlineFormatStrikethrough,
+  MdOutlineHorizontalRule,
+  MdOutlineRedo,
+  MdOutlineUndo,
 } from 'react-icons/md';
 
 import { Button } from '@/components/ui/button';
@@ -137,6 +141,52 @@ export default function MenuBar() {
           className={`${editor.isActive({ textAlign: 'right' }) ? 'bg-black text-white' : ''} hover:bg-black hover:text-white`}
         >
           <MdOutlineFormatAlignRight size={24} />
+        </Button>
+      </div>
+
+      <div className="flex h-10 items-center space-x-4 text-sm">
+        <Separator orientation="vertical" />
+      </div>
+
+      <div className="flex space-x-1">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          className={`${editor.isActive('bulletList') ? 'bg-black text-white' : ''} hover:bg-black hover:text-white`}
+        >
+          <MdOutlineHorizontalRule size={24} />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+          className={`${editor.isActive('blockquote') ? 'bg-black text-white' : ''} hover:bg-black hover:text-white`}
+        >
+          <BsBlockquoteLeft size={24} />
+        </Button>
+      </div>
+
+      <div className="flex h-10 items-center space-x-4 text-sm">
+        <Separator orientation="vertical" />
+      </div>
+
+      <div className="flex space-x-1">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => editor.chain().focus().undo().run()}
+          disabled={!editor.can().chain().focus().undo().run()}
+        >
+          <MdOutlineUndo size={24} />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => editor.chain().focus().redo().run()}
+          disabled={!editor.can().chain().focus().redo().run()}
+        >
+          <MdOutlineRedo size={24} />
         </Button>
       </div>
     </div>

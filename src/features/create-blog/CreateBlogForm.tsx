@@ -30,11 +30,11 @@ export default function CreateBlogForm() {
       editorProps={{
         attributes: {
           class:
-            'prose prose-sm focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
+            'prose prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
         },
       }}
     >
-      {null}
+      <div className=" prose-l" />
     </EditorProvider>
   );
 }
