@@ -23,18 +23,20 @@ const content = `
 
 export default function CreateBlogForm() {
   return (
-    <EditorProvider
-      extensions={extensions}
-      content={content}
-      slotBefore={<MenuBar />}
-      editorProps={{
-        attributes: {
-          class:
-            'prose prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
-        },
-      }}
-    >
-      <div className=" prose-l" />
-    </EditorProvider>
+    <div>
+      <EditorProvider
+        extensions={extensions}
+        content={content}
+        slotBefore={<MenuBar />}
+        editorProps={{
+          attributes: {
+            class:
+              'prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:h-px prose-hr:bg-black/20 prose-ul:list-disc prose-ol:list-decimal',
+          },
+        }}
+      >
+        <div className=" " />
+      </EditorProvider>
+    </div>
   );
 }
