@@ -1,7 +1,7 @@
 import { useCurrentEditor } from '@tiptap/react';
 import { AiOutlineOrderedList, AiOutlineUnorderedList } from 'react-icons/ai';
 import { BsBlockquoteLeft } from 'react-icons/bs';
-import { LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
+import { LuCode2, LuHeading1, LuHeading2, LuHeading3 } from 'react-icons/lu';
 import {
   MdOutlineFormatAlignCenter,
   MdOutlineFormatAlignLeft,
@@ -156,6 +156,14 @@ export default function MenuBar() {
           className={`${editor.isActive('bulletList') ? 'bg-black text-white' : ''} hover:bg-black hover:text-white`}
         >
           <MdOutlineHorizontalRule size={24} />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          className={`${editor.isActive('codeBlock') ? 'bg-black text-white' : ''} hover:bg-black hover:text-white`}
+        >
+          <LuCode2 size={24} />
         </Button>
         <Button
           variant="outline"

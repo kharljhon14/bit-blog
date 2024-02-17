@@ -2,12 +2,21 @@
 
 import './createBlogForm.css';
 
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import { EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import js from 'highlight.js/lib/languages/javascript';
+import { common, createLowlight } from 'lowlight';
 
 import MenuBar from './MenuBar';
+
+const lowlight = createLowlight(common);
+
+lowlight.register({ js });
+
+lowlight.highlight('js', '"use strict";');
 
 const extensions = [
   StarterKit,
@@ -15,7 +24,12 @@ const extensions = [
     types: ['heading', 'paragraph'],
   }),
   Highlight,
+  CodeBlockLowlight.configure({
+    lowlight,
+    defaultLanguage: 'js',
+  }),
 ];
+
 const content = `
 <h1>AI is the future</h1>
 <p>The new ...</p>
