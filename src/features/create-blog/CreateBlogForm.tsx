@@ -9,11 +9,12 @@ import { EditorProvider } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import js from 'highlight.js/lib/languages/javascript';
 import { common, createLowlight } from 'lowlight';
+import { useState } from 'react';
 
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import MenuBar from './MenuBar';
+import SubmitBlog from './SubmitBlog';
 
 const lowlight = createLowlight(common);
 
@@ -39,14 +40,21 @@ const content = `
 `;
 
 export default function CreateBlogForm() {
+  const [title, setTitle] = useState('');
+
   return (
     <div className="mx-12 space-y-4">
       <h1 className="text-3xl">Add Article</h1>
-      <Input placeholder="Title" />
+      <Input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Title"
+      />
       <EditorProvider
         extensions={extensions}
         content={content}
         slotBefore={<MenuBar />}
+        slotAfter={<SubmitBlog title={title} />}
         editorProps={{
           attributes: {
             class:
@@ -56,12 +64,6 @@ export default function CreateBlogForm() {
       >
         <div />
       </EditorProvider>
-      <Button
-        size="lg"
-        className="w-full"
-      >
-        Submit
-      </Button>
     </div>
   );
 }
