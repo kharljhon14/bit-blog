@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import { cookies } from 'next/headers';
 
 import { sql } from '@/db';
