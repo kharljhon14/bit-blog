@@ -1,3 +1,4 @@
+import DOMPurify from 'dompurify';
 import { cookies } from 'next/headers';
 
 import { sql } from '@/db';
@@ -26,9 +27,11 @@ export async function POST(req: Request) {
 
   const { title, content } = body;
 
+  const sanitizedContent = DOMPurify.sanitize(content);
+
   await sql('insert into blogs (title, content, user_id) values ($1, $2, $3)', [
     title,
-    content,
+    sanitizedContent,
     userId,
   ]);
 
