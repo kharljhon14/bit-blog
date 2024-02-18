@@ -10,6 +10,9 @@ import StarterKit from '@tiptap/starter-kit';
 import js from 'highlight.js/lib/languages/javascript';
 import { common, createLowlight } from 'lowlight';
 
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
 import MenuBar from './MenuBar';
 
 const lowlight = createLowlight(common);
@@ -32,12 +35,14 @@ const extensions = [
 
 const content = `
 <h1>AI is the future</h1>
-<p>The new ...</p>
+<p>The new advancements in artificial intelligence are revolutionizing various industries...</p>
 `;
 
 export default function CreateBlogForm() {
   return (
-    <div>
+    <div className="mx-12 space-y-4">
+      <h1 className="text-3xl">Add Article</h1>
+      <Input placeholder="Title" />
       <EditorProvider
         extensions={extensions}
         content={content}
@@ -45,12 +50,18 @@ export default function CreateBlogForm() {
         editorProps={{
           attributes: {
             class:
-              'prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:h-px prose-hr:bg-black/20 prose-ul:list-disc prose-ol:list-decimal',
+              'prose-base prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:h-px prose-hr:bg-black/20 prose-ul:list-disc prose-ol:list-decimal',
           },
         }}
       >
-        <div className=" " />
+        <div />
       </EditorProvider>
+      <Button
+        size="lg"
+        className="w-full"
+      >
+        Submit
+      </Button>
     </div>
   );
 }
