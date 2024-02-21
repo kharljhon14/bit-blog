@@ -94,7 +94,7 @@ export default function CreateBlogForm() {
         editorProps={{
           attributes: {
             class:
-              'prose-base prose-lg focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:h-px prose-hr:bg-black/20 prose-ul:list-disc prose-ol:list-decimal',
+              'prose-base focus:outline-none prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg prose-hr:h-px prose-hr:bg-black/20 prose-ul:list-disc prose-ol:list-decimal',
           },
         }}
       >
