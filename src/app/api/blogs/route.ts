@@ -7,6 +7,18 @@ import { schemaValidator } from '@/helpers/schemaValidator';
 import type { BlogSchemaType } from '@/schemas/blog';
 import { BlogSchema } from '@/schemas/blog';
 
+export async function GET() {
+  const limit = 10;
+  const offset = limit * 0; // change magic number to page later
+
+  const blogsRes = await sql('select * from blogs limit $1 offset $2', [
+    limit,
+    offset,
+  ]);
+
+  return Response.json({ data: blogsRes.rows });
+}
+
 export async function POST(req: Request) {
   const body = <BlogSchemaType>await req.json();
   const cookieStore = cookies();
