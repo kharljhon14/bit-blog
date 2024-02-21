@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import type { Blog } from '@/types/blog';
 
+import BlogCard from './BlogCard';
+
 async function getBlogs(page: number): Promise<Array<Blog>> {
   const res = await fetch(`/api/blogs?page=${page.toString()}`);
 
@@ -27,7 +29,12 @@ export default function BlogList() {
       <Button onClick={() => setPage(page - 1)}>Prev</Button>
       <Button onClick={() => setPage(page + 1)}>Next</Button>
       {blogs.map((blog) => (
-        <div key={blog.id}>{blog.title}</div>
+        <BlogCard
+          key={blog.id}
+          id={blog.id}
+          title={blog.title}
+          content={blog.content}
+        />
       ))}
     </div>
   );
