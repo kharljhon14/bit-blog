@@ -25,17 +25,16 @@ export default function BlogList() {
 
   return (
     <div>
-      <h1>Blog list</h1>
+      <div className="grid grid-cols-5">
+        {blogs.map((blog) => (
+          <BlogCard
+            key={blog.id}
+            blog={blog}
+          />
+        ))}
+      </div>
       <Button onClick={() => setPage(page - 1)}>Prev</Button>
       <Button onClick={() => setPage(page + 1)}>Next</Button>
-      {blogs.map((blog) => (
-        <BlogCard
-          key={blog.id}
-          id={blog.id}
-          title={blog.title}
-          content={blog.content}
-        />
-      ))}
     </div>
   );
 }

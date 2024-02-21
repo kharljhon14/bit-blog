@@ -4,6 +4,7 @@ export interface Blog {
   content: string;
   title: string;
   is_published: boolean;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
+  username: string;
 }

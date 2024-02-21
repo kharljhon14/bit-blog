@@ -19,10 +19,14 @@ export async function GET(req: NextRequest) {
   const limit = 10;
   const offset = limit * pageIndex; // change magic number to page later
 
-  const blogsRes = await sql('select * from blogs limit $1 offset $2', [
-    limit,
-    offset,
-  ]);
+  // ` select u.id, u.username, u.avatar
+  // from users u inner join follows f on u.id = f.user_id
+  // where follower_id = $1 limit $2 offset $3`,
+
+  const blogsRes = await sql(
+    `select b.* ,u.username from blogs b inner join users u on u.id = b.user_id limit $1 offset $2`,
+    [limit, offset]
+  );
 
   return Response.json({ data: blogsRes.rows });
 }
