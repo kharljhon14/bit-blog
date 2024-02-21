@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const protectedRoutesWhenAuth = ['/auth/sign-in', '/auth/sign-up'];
+  const authenticatedRoutes = ['/create-blog'];
 
   if (token) {
     const result = await verifyToken(token.value);
@@ -18,6 +19,8 @@ export async function middleware(request: NextRequest) {
     if (protectedRoutesWhenAuth.includes(pathname)) {
       return NextResponse.redirect(new URL('/', request.url));
     }
+  } else if (authenticatedRoutes.includes(pathname)) {
+    return NextResponse.redirect(new URL('/auth/sign-in', request.url));
   }
 
   return NextResponse.next();
@@ -25,5 +28,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/', '/auth/:path*'],
+  matcher: ['/:path*'],
 };
