@@ -41,6 +41,18 @@ const content = `
 
 export default function CreateBlogForm() {
   const [title, setTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (htmlContent: string) => {
+    setIsLoading(true);
+
+    await fetch('/api/blogs/', {
+      method: 'POST',
+      body: JSON.stringify({ title, content: htmlContent }),
+    });
+
+    setIsLoading(false);
+  };
 
   return (
     <div className="mx-12 space-y-4">
@@ -49,12 +61,18 @@ export default function CreateBlogForm() {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
+        disabled={isLoading}
       />
       <EditorProvider
         extensions={extensions}
         content={content}
         slotBefore={<MenuBar />}
-        slotAfter={<SubmitBlog title={title} />}
+        slotAfter={
+          <SubmitBlog
+            handleSubmit={handleSubmit}
+            disabled={isLoading}
+          />
+        }
         editorProps={{
           attributes: {
             class:

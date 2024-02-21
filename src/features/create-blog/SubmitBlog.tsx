@@ -1,27 +1,23 @@
 import { useCurrentEditor } from '@tiptap/react';
+import type { ButtonHTMLAttributes } from 'react';
 
 import { Button } from '@/components/ui/button';
 
-import { createBlog } from './blogForm';
-
-interface Props {
-  title: string;
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+  handleSubmit: (content: string) => void;
 }
 
-export default function SubmitBlog({ title }: Props) {
+export default function SubmitBlog({ handleSubmit, ...props }: Props) {
   const { editor } = useCurrentEditor();
 
   if (!editor) return null;
-
-  const handleOnClick = async () => {
-    await createBlog(title, editor.getHTML().toString());
-  };
 
   return (
     <Button
       size="lg"
       className="w-full"
-      onClick={handleOnClick}
+      {...props}
+      onClick={() => handleSubmit(editor.getHTML())}
     >
       Submit
     </Button>
