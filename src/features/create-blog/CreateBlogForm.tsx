@@ -43,13 +43,22 @@ export default function CreateBlogForm() {
   const [title, setTitle] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const [error, setError] = useState('');
+
   const handleSubmit = async (htmlContent: string) => {
     setIsLoading(true);
+    setError('');
 
-    await fetch('/api/blogs/', {
+    const res = await fetch('/api/blogs/', {
       method: 'POST',
       body: JSON.stringify({ title, content: htmlContent }),
     });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+
+      setError(message);
+    }
 
     setIsLoading(false);
   };
@@ -58,11 +67,20 @@ export default function CreateBlogForm() {
     <div className="mx-12 space-y-4">
       <h1 className="text-3xl">Add Article</h1>
       <Input
+        id="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Title"
         disabled={isLoading}
       />
+      {error && (
+        <label
+          className="text-xs text-red-500"
+          htmlFor="title"
+        >
+          {error}
+        </label>
+      )}
       <EditorProvider
         extensions={extensions}
         content={content}

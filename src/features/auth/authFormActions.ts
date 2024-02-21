@@ -56,7 +56,12 @@ export async function signInAction(
 
   const token = cookiesArray.split('=')[1];
 
-  cookieStore.set('session-token', token.split(';')[0]);
+  const oneWeekInSeconds = 7 * 24 * 60 * 60; // 7 days * 24 hours * 60 minutes * 60 seconds
+  const expirationInSeconds = Date.now() + oneWeekInSeconds * 1000; // Convert to milliseconds
+
+  cookieStore.set('session-token', token.split(';')[0], {
+    expires: new Date(expirationInSeconds),
+  });
 
   return redirect('/');
 }
