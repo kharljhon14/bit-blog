@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import type { Blog } from '@/types/blog';
@@ -15,13 +15,20 @@ async function getBlogs(page: number): Promise<Array<Blog>> {
 
 export default function BlogList() {
   const [page, setPage] = useState(0);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
 
-  getBlogs(page).then((data) => console.log(data));
+  useEffect(() => {
+    getBlogs(page).then((data) => setBlogs(data));
+  }, [page]);
 
   return (
     <div>
       <h1>Blog list</h1>
-      <Button onClick={() => setPage(page + 1)}>Click me</Button>
+      <Button onClick={() => setPage(page - 1)}>Prev</Button>
+      <Button onClick={() => setPage(page + 1)}>Next</Button>
+      {blogs.map((blog) => (
+        <div key={blog.id}>{blog.title}</div>
+      ))}
     </div>
   );
 }

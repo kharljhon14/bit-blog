@@ -1,5 +1,6 @@
 import DOMPurify from 'isomorphic-dompurify';
 import { cookies } from 'next/headers';
+import type { NextRequest } from 'next/server';
 
 import { sql } from '@/db';
 import { verifyToken } from '@/helpers/cookies';
@@ -7,12 +8,12 @@ import { schemaValidator } from '@/helpers/schemaValidator';
 import type { BlogSchemaType } from '@/schemas/blog';
 import { BlogSchema } from '@/schemas/blog';
 
-export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url);
+export async function GET(req: NextRequest) {
+  const { searchParams } = req.nextUrl;
 
-  const page = searchParams.get('page');
+  const page = searchParams.get('page') ?? '0';
 
-  let pageIndex = parseInt(page ?? '0', 10);
+  let pageIndex = parseInt(page, 10);
   if (Number.isNaN(pageIndex)) pageIndex = 0;
 
   const limit = 10;
